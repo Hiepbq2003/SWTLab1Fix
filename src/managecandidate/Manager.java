@@ -73,36 +73,22 @@ public class Manager {
             System.out.println("not found");
         }
     }
+public void printListNameCandidate() {
+    printCandidatesByType("Experience Candidate", Experience.class);
+    printCandidatesByType("Fresher Candidate", Fresher.class);
+    printCandidatesByType("Internship Candidate", Internship.class);
+}
 
-    public void printListNameCandidate() {
-        int countExperience = 0;
-        int countFresher = 0;
-        int countIntern = 0;
-        for (Candidate candidate : candidates) {
-            if (candidate instanceof Experience) {
-                countExperience++;
-                if (countExperience == 1) {
-                    System.out.println("Experience Candidate");
-                }
-                System.out.println(candidate.getFirstName() + " "
-                        + candidate.getLastName());
+private void printCandidatesByType(String candidateType, Class<?> clazz) {
+    boolean isPrinted = false; // Đảm bảo chỉ in tiêu đề một lần
+    for (Candidate candidate : candidates) {
+        if (clazz.isInstance(candidate)) {
+            if (!isPrinted) {
+                System.out.println(candidateType);
+                isPrinted = true;
             }
-            if (candidate instanceof Fresher) {
-                countFresher++;
-                if (countFresher == 1) {
-                    System.out.println("Fresher Candidate");
-                }
-                System.out.println(candidate.getFirstName() + " "
-                        + candidate.getLastName());
-            }
-            if (candidate instanceof Internship) {
-                countIntern++;
-                if (countIntern == 1) {
-                    System.out.println("Internship Candidate");
-                }
-                System.out.println(candidate.getFirstName() + " "
-                        + candidate.getLastName());
-            }
+            System.out.println(candidate.getFirstName() + " " + candidate.getLastName());
         }
     }
+}
 }
